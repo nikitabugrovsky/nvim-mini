@@ -23,11 +23,13 @@ vim.pack.add({
 	{ src = "https://github.com/echasnovski/mini.pick" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/kiddos/gemini.nvim" },
 	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
 })
 
+require("mason").setup({})
 require("mini.pick").setup({})
 
 ---@diagnostic disable-next-line: missing-fields
@@ -109,12 +111,22 @@ vim.lsp.config("pyright", {
         python = {
             analysis = {
                 typeCheckingMode = "off"
-            }
-        }
-    }
+            },
+        },
+    },
 })
 
-vim.lsp.config("gopls", {})
+vim.lsp.config("gopls", {
+    settings = {
+        gopls = {
+            completeUnimported = true,
+            usePlaceholders = true,
+            analyses = {
+                unusedparams = true,
+            },
+        },
+    },
+})
 
 vim.lsp.config("bashls", {
     settings = {
