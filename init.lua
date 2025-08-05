@@ -82,7 +82,7 @@ vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
 
 -- LSP --
 -- Needed when init.lua is in nonstandard location --
-require("lspconfig").lua_ls.setup {
+vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {
 			runtime = {
@@ -102,16 +102,28 @@ require("lspconfig").lua_ls.setup {
 			},
 		},
 	},
-}
+})
 
-require("lspconfig").bashls.setup {
+vim.lsp.config("pyright", {
+    settings = {
+        python = {
+            analysis = {
+                typeCheckingMode = "off"
+            }
+        }
+    }
+})
+
+vim.lsp.config("gopls", {})
+
+vim.lsp.config("bashls", {
     settings = {
         bashls = {
             formatCommand = "shfmt",
             formatArguments = { "-i", "2", "-s" },
         }
     }
-}
+})
 
 vim.lsp.enable({ "bashls", "pyright", "gopls", "lua_ls" })
 
